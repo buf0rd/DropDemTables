@@ -9,7 +9,8 @@ echo $attackerip already incorporated into firewall
 else
 iptables -A INPUT -s "$attackerip" -j DROP
 
-echo $attackerip >> /var/www/html/files/attackerlist.txt
+iptables -L INPUT > /var/www/html/files/attackerlist.txt
+#echo $attackerip >> /var/www/html/files/attackerlist.txt
 echo $attackerip added to iptables firewall
 
 fi
