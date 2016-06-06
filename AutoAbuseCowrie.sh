@@ -50,7 +50,7 @@ echo $abuse
 
 # Cleanup email template above.
 rm $form
-
+rm $iptablesverify
 ### echo Scripted by @drian ###
 exit 0
 
