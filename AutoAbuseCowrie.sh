@@ -1,10 +1,10 @@
 #!/bin/bash
 
 attackerip="$(cat /home/cowrie/cowrie/log/cowrie.log | grep -Eoa '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | tail -1)"
-name=/tmp/ssmtp_mailTEMP.txt
+form=/tmp/ssmtp_mailTEMP.txt
 myemail=oddsecdotnet@gmail.com
 subject="IP Dropped"
-abuse="$(whois 116.31.116.16 | grep abuse | tail -1 | egrep -o "\b[[:alnum:]_-]+@[[:alnum:]_-]{2,}\.[[:alnum:]]{2,}\b")"
+abuse="$(whois $attackerip | grep abuse | tail -1 | egrep -o "\b[[:alnum:]_-]+@[[:alnum:]_-]{2,}\.[[:alnum:]]{2,}\b")"
 if grep -q $attackerip /tmp/attackerlist.txt; then
 
 echo $attackerip already incorporated into firewall
@@ -29,21 +29,20 @@ else
 echo Retrying
 fi
 
-#######mail it all from  https://gist.github.com/SBejga/ab009201a16370289250 #############
+#The email magic
 
-echo "To: $myemail" > $name
-echo "From: $myemail" >> $name
-echo "Subject: Attack mitigated | IP dropped | ABUSE REPORT!!!" >> $name
-echo "$attackerip" >> $name
-whois $attackerip >> $name
-cat /home/cowrie/cowrie/log/cowrie.log | grep $attackerip >> $name
+echo "To: $myemail" > $form
+echo "From: $myemail" >> $form
+echo "Subject: Attack mitigated |drop| ABUSE REPORT from your domain $attackerip" >> $form
+echo "$attackerip" >> $form
+whois $attackerip >> $form
+cat /home/cowrie/cowrie/log/cowrie.log | grep $attackerip >> $form
 
-# exec ssmtp command with tmp txt file we have created
-cat $name | ssmtp oddsecdotnet@gmail.com, $abuse
+cat $form | ssmtp $myemail, $abuse
 echo $abuse
 
-# remove tmp file again
-rm $name
+# Cleanup email template above.
+rm $form
 
 ### echo Scripted by @drian ###
 exit 0
