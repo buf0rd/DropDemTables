@@ -6,9 +6,16 @@ form=/tmp/ssmtp_mailTEMP.txt
 myemail=oddsecdotnet@gmail.com
 subject="IP Dropped"
 abuse="$(whois $attackerip | grep abuse | tail -1 | egrep -o "\b[[:alnum:]_-]+@[[:alnum:]_-]{2,}\.[[:alnum:]]{2,}\b")"
+
+/sbin/iptables -L INPUT > /tmp/attackerlistTMP.txt
+
+iptablesverify=/tmp/attackerlistTMP.txt
+
 if grep -q $attackerip /tmp/attackerlist.txt; then
 
 echo $attackerip already incorporated into firewall
+
+exit 0
 
 else
 /sbin/iptables -A INPUT -s "$attackerip" -j DROP
@@ -19,9 +26,8 @@ echo $attackerip added to iptables firewall
 
 fi
 
-/sbin/iptables -L INPUT > /tmp/attackerlistTMP.txt
 
-if grep -q $attackerip /tmp/attackerlistTMP.txt; then
+if grep -q $attackerip $iptablesverify; then
 
 echo $attackerip reverified
 
