@@ -40,7 +40,7 @@ fi
 
 echo "To: $myemail" > $form
 echo "From: $myemail" >> $form
-echo "Subject: Attack mitigated |drop| ABUSE REPORT from your domain $attackerip" >> $form
+echo "Subject:  ABUSE REPORT | Malicious Activity | Originating from domain $attackerip" >> $form
 echo "$attackerip" >> $form
 whois $attackerip >> $form
 cat /home/cowrie/cowrie/log/cowrie.log | grep $attackerip >> $form
