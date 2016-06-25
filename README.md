@@ -17,11 +17,17 @@ A script based of my IPdrop script to auto drop attacker IP traffic. In addition
 +ssmtp -- setup and configured w gmail as follows>>>
 
 ////#cat/etc/ssmtp/ssmtp.conf///
+
 hostname=###YOURHOSTNAME####
+
 root=myemailaddress@gmail.com
+
 mailhub=smtp.gmail.com:587
+
 AuthUser=####GMAIL USER NAME######
+
 AuthPass=#####PASSWORD FOR GMAIL######
+
 UseSTARTTLS=YES
 ////////////////////////////////
 
