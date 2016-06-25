@@ -34,5 +34,7 @@ UseSTARTTLS=YES
 
 
 To use;
+
 chmod +x AutoAbuseCowrie.sh
+
 Edit: myemail variable to your email to receive notifications
