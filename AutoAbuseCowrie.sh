@@ -3,7 +3,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 attackerip="$(cat /home/cowrie/cowrie/log/cowrie.log | grep -Eoa '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | tail -1)"
 form=/tmp/ssmtp_mailTEMP.txt
-myemail=oddsecdotnet@gmail.com
+myemail=YOUREMAIL@gmail.com ###change me to your own email. otherwise you are defeating purpose of script
 subject="IP Dropped"
 abuse="$(whois $attackerip | grep abuse | tail -1 | egrep -o "\b[[:alnum:]_-]+@[[:alnum:]_-]{2,}\.[[:alnum:]]{2,}\b")"
 
