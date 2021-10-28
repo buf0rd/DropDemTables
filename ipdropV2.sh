@@ -7,7 +7,7 @@ if grep -q $attackerip /var/www/html/files/attackerlist.txt; then
 echo $attackerip already incorporated into firewall
 
 else
-/sbin/iptables -A INPUT -s "$attackerip" -j DROP
+/sbin/iptables -I INPUT 1 -s "$attackerip" -j DROP
 
 
 echo $attackerip >> /var/www/html/files/attackerlist.txt
